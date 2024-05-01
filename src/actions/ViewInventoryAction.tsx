@@ -1,9 +1,10 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import Action from "../classes/Action";
+import React from "react";
 import GameController from "../GameController";
+import Action from "../classes/Action";
 
-export default class ViewInventoryAction extends Action<never> {
+export default class ViewInventoryAction extends Action {
     constructor(gameController: GameController) {
         super("i|inv|inventory", () => {
             gameController.console.clear();

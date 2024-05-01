@@ -1,8 +1,8 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
+import React from "react";
 import GameController from "../GameController";
 import Action from "../classes/Action";
-
 import { GameControls } from "../gameControls";
 
 export default class HelpAction extends Action {

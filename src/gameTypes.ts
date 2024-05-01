@@ -31,3 +31,12 @@ export type InteractionText = ReactNode | ReactNode[];
 
 export type LockType = "key" | "pin";
 export type LockCode = string;
+
+/**
+ * Shout-out to this StackOverflow answer for the great utility type:
+ * https://stackoverflow.com/a/54178819/4531623
+ */
+export type OptionalKeys<T, K extends keyof T> = Omit<T, K> &
+    Partial<Pick<T, K>>;
+export type RequiredKeys<T, K extends keyof T> = Omit<T, K> &
+    Required<Pick<T, K>>;

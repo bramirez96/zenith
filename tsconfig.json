@@ -10,7 +10,8 @@
         "moduleResolution": "Node",
         "declaration": true,
         "declarationMap": false,
-        "jsx": "react"
+        "jsx": "react",
+        "esModuleInterop": true
     },
     "include": ["./src/**/*", "index.ts"],
     "exclude": ["./src/**/*.test.ts", "node_modules", "build"]

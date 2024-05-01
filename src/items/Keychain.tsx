@@ -1,7 +1,7 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
 import Item, { ItemDefinition } from "../classes/Item";
-import { OptionalKeys } from "../../../../utilityTypes";
+import { OptionalKeys } from "../gameTypes";
 
 export default class Keychain extends Item {
     constructor({ name = "keychain", ...params }: KeychainDefinition) {

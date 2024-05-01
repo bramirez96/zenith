@@ -3,9 +3,8 @@
 import Feature, { FeatureDefinition } from "../classes/Feature";
 import GameController from "../GameController";
 import Book, { BookDefinition } from "./Book";
-import { OptionalKeys } from "../../../../utilityTypes";
 import { wrapInputTag } from "../gameHelpers";
-import { DefinitionMap } from "../gameTypes";
+import { DefinitionMap, OptionalKeys } from "../gameTypes";
 import React from "react";
 
 export default class Bookshelf extends Feature {

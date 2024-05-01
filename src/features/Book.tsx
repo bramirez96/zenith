@@ -1,10 +1,10 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
+import React, { ReactNode } from "react";
 import { Feature, FeatureDefinition } from "../classes";
 import GameController from "../GameController";
 import { newlineStringToNodes } from "../gameHelpers";
-import { OptionalKeys } from "../../../../utilityTypes";
-import { ReactNode } from "react";
+import { OptionalKeys } from "../gameTypes";
 
 export default class Book extends Feature {
     public title?: string;

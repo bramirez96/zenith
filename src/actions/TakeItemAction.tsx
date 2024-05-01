@@ -4,6 +4,7 @@ import Action from "../classes/Action";
 import GameController from "../GameController";
 import { Item, Room } from "../classes";
 import { wrapInputTag } from "../gameHelpers";
+import React from "react";
 
 export default class TakeItemAction extends Action {
     constructor(item: Item, room: Room, gameController: GameController) {

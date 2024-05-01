@@ -1,7 +1,8 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import Action from "../classes/Action";
+import React from "react";
 import GameController from "../GameController";
+import Action from "../classes/Action";
 import Feature from "../classes/Feature";
 import { wrapInputTag } from "../gameHelpers";
 

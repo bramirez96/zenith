@@ -4,6 +4,7 @@ import Action from "../classes/Action";
 import GameController from "../GameController";
 import { Key } from "../items";
 import { Exit, Feature } from "../classes";
+import React from "react";
 
 export default class UnlockAction extends Action {
     constructor(target: Exit | Feature, gameController: GameController) {

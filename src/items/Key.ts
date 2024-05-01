@@ -1,7 +1,7 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
 import Item, { ItemDefinition } from "../classes/Item";
-import { OptionalKeys } from "../../../../utilityTypes";
+import { OptionalKeys } from "../gameTypes";
 
 export default class Key extends Item {
     private readonly keyCode: string;

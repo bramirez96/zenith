@@ -1,21 +1,19 @@
 {
-  "name": "[NAME]",
-  "version": "0.0.0",
-  "description": "[DESCRIPTION]",
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "name": "@brr-dev/zenith",
+  "version": "1.0.0",
+  "description": "Zenith is a work-in-progress game engine to build highly customizable console-based text adventure game experiences.",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "type": "module",
   "files": [
-    "./dist"
+    "build",
+    "README.md"
   ],
-  "repository": "[REPO URL]",
+  "repository": "https://github.com/bramirez96/zenith",
   "author": "Brandon Ramirez <brandon@brr.dev>",
   "license": "MIT",
-  "type": "module",
-  "exports": {
-    ".": "./dist/index.js"
-  },
   "scripts": {
-    "build": "rm -rf dist && tsc",
+    "build": "rm -rf build && npx tsc",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "format": "prettier --write \"src/**/*.ts\"",

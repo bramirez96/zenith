@@ -8,6 +8,7 @@ import { ReactNode } from "react";
 import { LockCode, LockType } from "../gameTypes";
 import ActionMap from "./ActionMap";
 import { MoveAction, UnlockAction } from "../actions";
+import { ObjectDefinitionGenerator } from "../utils";
 
 // TODO this class is a mess, clean it up
 export default class Exit {
@@ -150,6 +151,8 @@ export default class Exit {
             );
     }
 }
+
+export const defineExit = ObjectDefinitionGenerator(Exit);
 
 export type ExitCallback<ReturnType> = (
     exit: Exit,

@@ -8,6 +8,7 @@ import ActionMap from "./ActionMap";
 import Exit, { ExitDefinition } from "./Exit";
 import Feature, { FeatureDefinition } from "./Feature";
 import Item, { ItemDefinition } from "./Item";
+import { ObjectDefinitionGenerator } from "../utils";
 
 /**
  * Instances of the Room class represent a single tile on the Zone map. Each
@@ -184,6 +185,8 @@ export default class Room {
         return matchingExit;
     }
 }
+
+export const defineRoom = ObjectDefinitionGenerator(Room);
 
 export type RoomID = string;
 export type RoomCallback<ReturnType> = (

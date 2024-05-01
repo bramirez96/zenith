@@ -5,6 +5,7 @@ import { replaceTag } from "../gameHelpers";
 import GameController from "../GameController";
 import ActionMap from "./ActionMap";
 import TakeItemAction from "../actions/TakeItemAction";
+import { ObjectDefinitionGenerator } from "../utils";
 
 export default class Item {
     public name: string;
@@ -58,6 +59,8 @@ export default class Item {
         );
     }
 }
+
+export const defineItem = ObjectDefinitionGenerator(Item);
 
 export type ItemDefinition = {
     /** Display title for the item in your inventory */

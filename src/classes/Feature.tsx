@@ -8,6 +8,7 @@ import { DefinitionMap, LockCode, LockType, RequiredKeys } from "../gameTypes";
 import { Key } from "../items";
 import ActionMap from "./ActionMap";
 import Item, { ItemDefinition } from "./Item";
+import { ObjectDefinitionGenerator } from "../utils";
 
 export default class Feature {
     public name: string;
@@ -235,6 +236,8 @@ export default class Feature {
               ));
     }
 }
+
+export const defineFeature = ObjectDefinitionGenerator(Feature);
 
 export type FeatureCallback<ReturnType> = (
     feature: Feature,

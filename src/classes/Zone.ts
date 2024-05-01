@@ -1,6 +1,7 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
 import { ConditionMap } from "../gameTypes";
+import { ObjectDefinitionGenerator } from "../utils";
 import Room, { RoomDefinition, RoomID } from "./Room";
 
 /**
@@ -52,6 +53,8 @@ export default class Zone {
         return room;
     }
 }
+
+export const defineZone = ObjectDefinitionGenerator(Zone);
 
 export type ZoneID = number;
 export type ZoneDefinition = {

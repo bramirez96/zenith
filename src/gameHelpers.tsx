@@ -1,21 +1,24 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import { ReactNode } from 'react';
-import { InteractionText } from './gameTypes';
-import GameController from './GameController';
-import { classnames } from '../../classnames';
-import { Feature, Item, Room } from './classes';
+import { classnames } from "@brr-dev/classnames";
+import React, { ReactNode } from "react";
+import GameController from "./GameController";
+import { Feature, Item, Room } from "./classes";
+import { InteractionText } from "./gameTypes";
 
 /**
  * Return the value if it's a function, or return a new cb returning the value.
  */
 export function asFunction<CBType, DataType>(data: DataType) {
-    return (typeof data !== 'function' ? () => data : data) as CBType;
+    return (typeof data !== "function" ? () => data : data) as CBType;
 }
 
 export function wrapInputTag(tag: string, tagOnClick?: () => void): ReactNode {
     return (
-        <span className={classnames('alt', tagOnClick && 'interactive')} onClick={tagOnClick}>
+        <span
+            className={classnames("alt", tagOnClick && "interactive")}
+            onClick={tagOnClick}
+        >
             &gt;{tag}&lt;
         </span>
     );
@@ -35,7 +38,10 @@ export function replaceTag(
     }, [] as ReactNode[]);
 }
 
-export function newlineStringToNodes(strWithNewlines: string, newlineChar = '\n'): ReactNode[] {
+export function newlineStringToNodes(
+    strWithNewlines: string,
+    newlineChar = "\n",
+): ReactNode[] {
     return strWithNewlines.split(newlineChar).reduce((res, stringPart) => {
         if (res.length > 0) res.push(<br />);
         res.push(stringPart);
@@ -43,9 +49,15 @@ export function newlineStringToNodes(strWithNewlines: string, newlineChar = '\n'
     }, [] as ReactNode[]);
 }
 
-export function hasItem(featureOrRoom: Feature | Room, itemOrName: string | Item): boolean {
-    if (typeof itemOrName === 'string') {
-        return featureOrRoom.items.find((value) => value.name === itemOrName) !== undefined;
+export function hasItem(
+    featureOrRoom: Feature | Room,
+    itemOrName: string | Item,
+): boolean {
+    if (typeof itemOrName === "string") {
+        return (
+            featureOrRoom.items.find((value) => value.name === itemOrName) !==
+            undefined
+        );
     } else {
         return featureOrRoom.items.indexOf(itemOrName) >= 0;
     }
@@ -74,8 +86,11 @@ export async function playInteractionText(
 
         const _txt = interactionText[idx];
 
-        if (typeof _txt === 'string') {
-            gameController.console.print(<div>{newlineStringToNodes(_txt)}</div>, <br />);
+        if (typeof _txt === "string") {
+            gameController.console.print(
+                <div>{newlineStringToNodes(_txt)}</div>,
+                <br />,
+            );
         } else {
             gameController.console.print(<div>{_txt}</div>, <br />);
         }

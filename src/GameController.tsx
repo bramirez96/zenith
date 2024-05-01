@@ -1,9 +1,9 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import { ConsoleController } from '../../../utils';
-import { GameDiscDefinition } from './gameTypes';
-import { Player, Room, RoomID, Zone, ZoneID, ZoneLoader } from './classes';
-import { HelpAction, ViewInventoryAction } from './actions';
+import { ConsoleController } from "../../../utils";
+import { GameDiscDefinition } from "./gameTypes";
+import { Player, Room, RoomID, Zone, ZoneID, ZoneLoader } from "./classes";
+import { HelpAction, ViewInventoryAction } from "./actions";
 
 /**
  * This class should handle everything. It should build maps from JSON and store the
@@ -19,13 +19,13 @@ import { HelpAction, ViewInventoryAction } from './actions';
 export default class GameController {
     /** A reference to the controller class for the Console component. */
     public console: ConsoleController;
-    
+
     /** Store a reference to the Player object on this top-level controller. */
     public player: Player;
 
     /** The ID of the current Zone. */
     public zoneID?: ZoneID;
-    
+
     /**
      * We store one Zone in memory at any given time, the player's current Zone.
      * The Zone class stores all of the Room information.
@@ -78,7 +78,9 @@ export default class GameController {
         }
 
         if (!this._zoneLoader) {
-            throw new Error(`No ZoneLoader present when loading Zone ${this.zoneID}.`);
+            throw new Error(
+                `No ZoneLoader present when loading Zone ${this.zoneID}.`,
+            );
         }
 
         const zoneDef = await this._zoneLoader.loadZone(this.zoneID);
@@ -114,11 +116,12 @@ export default class GameController {
      */
     async handleInput(input?: string): Promise<void> {
         if (input) {
-            input = input.toLowerCase().replace(/\s+/gi, ' ').trim();
+            input = input.toLowerCase().replace(/\s+/gi, " ").trim();
         }
 
         // Don't run the general input handler mid-action
-        if (this._isPerformingAction || this.console.isWaitingForInput()) return;
+        if (this._isPerformingAction || this.console.isWaitingForInput())
+            return;
 
         const currentRoom = this.getCurrentRoom();
 

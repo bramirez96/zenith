@@ -1,13 +1,13 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import Room, { RoomID } from './Room';
-import GameController from '../GameController';
-import { asFunction, newlineStringToNodes, replaceTag } from '../gameHelpers';
-import Key from '../items/Key';
-import { ReactNode } from 'react';
-import { LockCode, LockType } from '../gameTypes';
-import ActionMap from './ActionMap';
-import { MoveAction, UnlockAction } from '../actions';
+import Room, { RoomID } from "./Room";
+import GameController from "../GameController";
+import { asFunction, newlineStringToNodes, replaceTag } from "../gameHelpers";
+import Key from "../items/Key";
+import { ReactNode } from "react";
+import { LockCode, LockType } from "../gameTypes";
+import ActionMap from "./ActionMap";
+import { MoveAction, UnlockAction } from "../actions";
 
 // TODO this class is a mess, clean it up
 export default class Exit {
@@ -20,7 +20,9 @@ export default class Exit {
     public readonly lockType?: LockType;
     private readonly _fBlocked: ExitCallback<boolean | ReactNode | ReactNode[]>;
     private readonly displayText: ExitCallback<string>;
-    private readonly _fLockedInteractionText?: ExitCallback<ReactNode | ReactNode[]>;
+    private readonly _fLockedInteractionText?: ExitCallback<
+        ReactNode | ReactNode[]
+    >;
     private readonly _fGetUnlockTextCB?: ExitCallback<ReactNode | ReactNode[]>;
 
     /**
@@ -46,10 +48,10 @@ export default class Exit {
             this._fLockedInteractionText = asFunction(lockedInteractionText);
         }
 
-        if (typeof locked === 'object') {
+        if (typeof locked === "object") {
             this.locked = true;
             this.lockCode = locked.code;
-            this.lockType = locked.type ?? 'key';
+            this.lockType = locked.type ?? "key";
         } else {
             this.locked = locked;
         }
@@ -67,7 +69,10 @@ export default class Exit {
         return this.direction;
     }
 
-    public registerActions(actionMap: ActionMap, gameController: GameController) {
+    public registerActions(
+        actionMap: ActionMap,
+        gameController: GameController,
+    ) {
         actionMap.register(new MoveAction(this, gameController));
 
         if (this.locked) {
@@ -79,10 +84,12 @@ export default class Exit {
      * Pass in a Key object, returns true if the Key is correct for the Exit.
      */
     public isCorrectKey(key: Key): boolean {
-        return key.codeMatches(this.lockCode ?? '');
+        return key.codeMatches(this.lockCode ?? "");
     }
 
-    public blocked(gameController: GameController): boolean | ReactNode | ReactNode[] {
+    public blocked(
+        gameController: GameController,
+    ): boolean | ReactNode | ReactNode[] {
         return this._fBlocked(
             this,
             gameController.getCurrentRoom(),
@@ -100,7 +107,7 @@ export default class Exit {
         );
 
         // TODO we need to do the newline replace on this as well oof
-        return replaceTag(rawDisplayText, '$DIR$', this.direction, () =>
+        return replaceTag(rawDisplayText, "$DIR$", this.direction, () =>
             gameController.console.setInputValue(`go ${this.direction}`),
         );
     }
@@ -109,7 +116,9 @@ export default class Exit {
         return this._fLockedInteractionText !== undefined;
     }
 
-    public getLockedInteractionText(gameController: GameController): ReactNode | ReactNode[] {
+    public getLockedInteractionText(
+        gameController: GameController,
+    ): ReactNode | ReactNode[] {
         if (!this._fLockedInteractionText) return undefined;
 
         const rawInteractionText = this._fLockedInteractionText(
@@ -121,11 +130,12 @@ export default class Exit {
 
         let interactionTextArray;
 
-        if (Array.isArray(rawInteractionText)) interactionTextArray = rawInteractionText;
+        if (Array.isArray(rawInteractionText))
+            interactionTextArray = rawInteractionText;
         else interactionTextArray = [rawInteractionText];
 
         return interactionTextArray.map((text) =>
-            typeof text === 'string' ? newlineStringToNodes(text) : text,
+            typeof text === "string" ? newlineStringToNodes(text) : text,
         );
     }
 
@@ -171,7 +181,11 @@ export type ExitDefinition = {
      * unblock the Exit here. At time of writing, the current idea is that this
      * means "blocked from the other side", but let's see where it goes!
      */
-    blocked?: boolean | ReactNode | ReactNode[] | ExitCallback<boolean | ReactNode | ReactNode[]>;
+    blocked?:
+        | boolean
+        | ReactNode
+        | ReactNode[]
+        | ExitCallback<boolean | ReactNode | ReactNode[]>;
 
     /**
      * If true, the Exit door is locked. All locked doors should be able to be
@@ -184,8 +198,14 @@ export type ExitDefinition = {
     /**
      * The text that displays when you attempt to use an Exit, but it's locked.
      */
-    lockedInteractionText?: ExitCallback<ReactNode | ReactNode[]> | ReactNode | ReactNode[];
-    unlockText?: ReactNode | ReactNode[] | ExitCallback<ReactNode | ReactNode[]>;
+    lockedInteractionText?:
+        | ExitCallback<ReactNode | ReactNode[]>
+        | ReactNode
+        | ReactNode[];
+    unlockText?:
+        | ReactNode
+        | ReactNode[]
+        | ExitCallback<ReactNode | ReactNode[]>;
 
     /**
      * TODO flesh this out more

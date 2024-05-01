@@ -15,9 +15,11 @@ export default class Action<MethodArgs extends unknown[] = unknown[]> {
     }
 
     registerTo(actionMap: Map<string, Action>) {
-        for (const hotkey of this.hotkeys.split('|')) {
+        for (const hotkey of this.hotkeys.split("|")) {
             if (actionMap.has(hotkey)) {
-                console.error(`Registering multiple actions to hotkey: ${hotkey}`);
+                console.error(
+                    `Registering multiple actions to hotkey: ${hotkey}`,
+                );
             }
 
             actionMap.set(hotkey, this);

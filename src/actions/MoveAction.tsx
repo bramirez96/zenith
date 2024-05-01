@@ -1,9 +1,9 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import Action from '../classes/Action';
-import GameController from '../GameController';
-import { Exit } from '../classes';
-import { playInteractionText, wrapInputTag } from '../gameHelpers';
+import Action from "../classes/Action";
+import GameController from "../GameController";
+import { Exit } from "../classes";
+import { playInteractionText, wrapInputTag } from "../gameHelpers";
 
 export default class MoveAction extends Action {
     constructor(
@@ -16,11 +16,15 @@ export default class MoveAction extends Action {
 
             let blockText = exit.blocked(gameController);
             if (blockText) {
-                blockText = typeof blockText === 'string' ? blockText : 'This path is blocked.';
+                blockText =
+                    typeof blockText === "string"
+                        ? blockText
+                        : "This path is blocked.";
                 await gameController.console.pause(blockText);
             } else if (exit.locked) {
                 if (exit.hasLockedInteractionText()) {
-                    const intText = exit.getLockedInteractionText(gameController);
+                    const intText =
+                        exit.getLockedInteractionText(gameController);
 
                     gameController.console.clear();
                     await playInteractionText(intText, gameController, {
@@ -31,10 +35,13 @@ export default class MoveAction extends Action {
                     exit.lockDiscovered = true;
                 } else if (exit.lockDiscovered && includeUnlockHint) {
                     await gameController.console.pause(
-                        <>The door is locked, {wrapInputTag('unlock')} it to get through.</>,
+                        <>
+                            The door is locked, {wrapInputTag("unlock")} it to
+                            get through.
+                        </>,
                     );
                 } else {
-                    await gameController.console.pause('The door is locked.');
+                    await gameController.console.pause("The door is locked.");
                     exit.lockDiscovered = true;
                 }
             } else {
@@ -43,7 +50,9 @@ export default class MoveAction extends Action {
 
             if (exitSuccess) {
                 gameController.setCurrentRoom(exit.targetRoomID);
-                await gameController.console.pause(`You head ${exit.direction}...`);
+                await gameController.console.pause(
+                    `You head ${exit.direction}...`,
+                );
             }
         });
     }

@@ -1,7 +1,7 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import { ReactNode } from 'react';
-import { ZoneMap } from './classes';
+import { ReactNode } from "react";
+import { ZoneMap } from "./classes";
 
 /**
  * Conditions should be tracked by creating string constants for reference keys
@@ -29,5 +29,5 @@ export type GameDiscDefinition = {
 
 export type InteractionText = ReactNode | ReactNode[];
 
-export type LockType = 'key' | 'pin';
+export type LockType = "key" | "pin";
 export type LockCode = string;

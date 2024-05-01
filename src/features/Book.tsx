@@ -1,10 +1,10 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import { Feature, FeatureDefinition } from '../classes';
-import GameController from '../GameController';
-import { newlineStringToNodes } from '../gameHelpers';
-import { OptionalKeys } from '../../../../utilityTypes';
-import { ReactNode } from 'react';
+import { Feature, FeatureDefinition } from "../classes";
+import GameController from "../GameController";
+import { newlineStringToNodes } from "../gameHelpers";
+import { OptionalKeys } from "../../../../utilityTypes";
+import { ReactNode } from "react";
 
 export default class Book extends Feature {
     public title?: string;
@@ -15,8 +15,8 @@ export default class Book extends Feature {
         title,
         author,
         text,
-        name = 'book',
-        interactionText = '',
+        name = "book",
+        interactionText = "",
         ...params
     }: BookDefinition) {
         super({ name, interactionText, ...params });
@@ -38,9 +38,15 @@ export default class Book extends Feature {
     getInteractionText(_gameController: GameController): ReactNode[] {
         return [
             <div className="box container">
-                {this.title && <div className="center-align">- {this.title} -</div>}
-                {this.author && <div className="center-align">{this.author}</div>}
-                {(this.title || this.author) && <div className="center-align">---</div>}
+                {this.title && (
+                    <div className="center-align">- {this.title} -</div>
+                )}
+                {this.author && (
+                    <div className="center-align">{this.author}</div>
+                )}
+                {(this.title || this.author) && (
+                    <div className="center-align">---</div>
+                )}
                 {this.text ? (
                     <>
                         <div>{newlineStringToNodes(this.text)}</div>
@@ -55,13 +61,18 @@ export default class Book extends Feature {
     }
 
     async _interaction(gameController: GameController): Promise<void> {
-        if (this.name === 'book') await gameController.console.pause(`You reach for the book...`);
+        if (this.name === "book")
+            await gameController.console.pause(`You reach for the book...`);
         await super._interaction(gameController);
-        if (this.name === 'book') await gameController.console.pause(`You put the book down.`);
+        if (this.name === "book")
+            await gameController.console.pause(`You put the book down.`);
     }
 }
 
-export type BookDefinition = OptionalKeys<FeatureDefinition, 'name' | 'interactionText'> & {
+export type BookDefinition = OptionalKeys<
+    FeatureDefinition,
+    "name" | "interactionText"
+> & {
     title?: string;
     author?: string;
     text?: string;

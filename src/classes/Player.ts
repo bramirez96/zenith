@@ -23,7 +23,10 @@ export default class Player {
     removeItem(item: Item) {
         const idx = this.inventory.indexOf(item);
         if (idx >= 0) {
-            this.inventory = [...this.inventory.slice(0, idx), ...this.inventory.slice(idx + 1)];
+            this.inventory = [
+                ...this.inventory.slice(0, idx),
+                ...this.inventory.slice(idx + 1),
+            ];
         }
     }
 }

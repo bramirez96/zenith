@@ -1,9 +1,9 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import Action from '../classes/Action';
-import GameController from '../GameController';
-import Feature from '../classes/Feature';
-import { wrapInputTag } from '../gameHelpers';
+import Action from "../classes/Action";
+import GameController from "../GameController";
+import Feature from "../classes/Feature";
+import { wrapInputTag } from "../gameHelpers";
 
 export default class InteractAction extends Action {
     constructor(
@@ -23,11 +23,14 @@ export default class InteractAction extends Action {
                 if (feature.lockDiscovered && includeUnlockHint) {
                     await gameController.console.pause(
                         <>
-                            The {feature.name} is locked, {wrapInputTag('unlock')} it to get inside.
+                            The {feature.name} is locked,{" "}
+                            {wrapInputTag("unlock")} it to get inside.
                         </>,
                     );
                 } else {
-                    await gameController.console.pause(`The ${feature.name} is locked.`);
+                    await gameController.console.pause(
+                        `The ${feature.name} is locked.`,
+                    );
                     feature.lockDiscovered = true;
                 }
             } else {
@@ -35,7 +38,9 @@ export default class InteractAction extends Action {
             }
 
             if (interactSuccess) {
-                await gameController.console.pause(`You examine the ${feature.name}...`);
+                await gameController.console.pause(
+                    `You examine the ${feature.name}...`,
+                );
                 return await feature.interact(gameController);
             }
         });

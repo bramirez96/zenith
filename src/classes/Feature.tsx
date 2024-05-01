@@ -1,14 +1,14 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import GameController from '../GameController';
-import { asFunction, newlineStringToNodes, replaceTag } from '../gameHelpers';
-import Item, { ItemDefinition } from './Item';
-import { DefinitionMap, LockCode, LockType } from '../gameTypes';
-import { RequiredKeys } from '../../../../utilityTypes';
-import { ReactNode } from 'react';
-import { Key } from '../items';
-import ActionMap from './ActionMap';
-import { InteractAction, UnlockAction } from '../actions';
+import GameController from "../GameController";
+import { asFunction, newlineStringToNodes, replaceTag } from "../gameHelpers";
+import Item, { ItemDefinition } from "./Item";
+import { DefinitionMap, LockCode, LockType } from "../gameTypes";
+import { RequiredKeys } from "../../../../utilityTypes";
+import { ReactNode } from "react";
+import { Key } from "../items";
+import ActionMap from "./ActionMap";
+import { InteractAction, UnlockAction } from "../actions";
 
 export default class Feature {
     public name: string;
@@ -17,8 +17,12 @@ export default class Feature {
     public readonly lockCode?: LockCode;
     public readonly lockType?: LockType;
     protected readonly _fRoomTextCB: FeatureCallback<string | null>;
-    protected readonly _fGetUnlockTextCB?: FeatureCallback<ReactNode | ReactNode[]>;
-    protected readonly _fInteractionTextCB: FeatureCallback<ReactNode | ReactNode[]>;
+    protected readonly _fGetUnlockTextCB?: FeatureCallback<
+        ReactNode | ReactNode[]
+    >;
+    protected readonly _fInteractionTextCB: FeatureCallback<
+        ReactNode | ReactNode[]
+    >;
     private readonly _discoverText: string | null;
 
     constructor({
@@ -36,17 +40,17 @@ export default class Feature {
         this._fInteractionTextCB = asFunction(interactionText);
         this.lockDiscovered = lockDiscovered;
 
-        if (roomText === undefined) roomText = 'You see a $NAME$.';
-        else if (roomText === '') roomText = null;
+        if (roomText === undefined) roomText = "You see a $NAME$.";
+        else if (roomText === "") roomText = null;
         this._fRoomTextCB = asFunction(roomText);
 
-        if (discoverText === undefined) discoverText = 'You find a $NAME$.';
-        else if (discoverText === '') discoverText = null;
+        if (discoverText === undefined) discoverText = "You find a $NAME$.";
+        else if (discoverText === "") discoverText = null;
         this._discoverText = discoverText;
 
-        if (typeof locked === 'object') {
+        if (typeof locked === "object") {
             this.locked = true;
-            this.lockType = locked.type ?? 'key';
+            this.lockType = locked.type ?? "key";
             this.lockCode = locked.code;
         } else {
             this.locked = !!locked;
@@ -77,7 +81,7 @@ export default class Feature {
 
     public get discoverText() {
         return this._discoverText
-            ? replaceTag(this._discoverText, '$NAME$', this.name)
+            ? replaceTag(this._discoverText, "$NAME$", this.name)
             : this._discoverText;
     }
 
@@ -85,7 +89,10 @@ export default class Feature {
         return `look at ${this.name}|look ${this.name}|inspect ${this.name}|examine ${this.name}`;
     }
 
-    public registerActions(actionMap: ActionMap, gameController: GameController) {
+    public registerActions(
+        actionMap: ActionMap,
+        gameController: GameController,
+    ) {
         actionMap.register(new InteractAction(this, gameController));
 
         if (this.locked) {
@@ -94,8 +101,13 @@ export default class Feature {
     }
 
     public getInteractionText(gameController: GameController) {
-        const _rawInteractionText = this._fInteractionTextCB(this, gameController);
-        return Array.isArray(_rawInteractionText) ? _rawInteractionText : [_rawInteractionText];
+        const _rawInteractionText = this._fInteractionTextCB(
+            this,
+            gameController,
+        );
+        return Array.isArray(_rawInteractionText)
+            ? _rawInteractionText
+            : [_rawInteractionText];
     }
 
     public getUnlockText(gameController: GameController) {
@@ -104,13 +116,13 @@ export default class Feature {
     }
 
     public isCorrectKey(key: Key) {
-        return key.codeMatches(this.lockCode ?? '');
+        return key.codeMatches(this.lockCode ?? "");
     }
 
     public getRoomText(_gameController: GameController) {
         const _rawRoomText = this._fRoomTextCB(this, _gameController);
         return _rawRoomText !== null
-            ? replaceTag(_rawRoomText, '$NAME$', this.name, () =>
+            ? replaceTag(_rawRoomText, "$NAME$", this.name, () =>
                   _gameController.console.setInputValue(`look at ${this.name}`),
               )
             : _rawRoomText;
@@ -131,7 +143,9 @@ export default class Feature {
         if (interactionText.length <= 1) {
             const _text: string | ReactNode = interactionText[0];
             const interactionNodes: ReactNode[] =
-                typeof _text === 'string' ? newlineStringToNodes(_text) : [_text];
+                typeof _text === "string"
+                    ? newlineStringToNodes(_text)
+                    : [_text];
 
             gameController.console.print(
                 <div>
@@ -160,16 +174,27 @@ export default class Feature {
             for (let idx = 0; idx < interactionText.length; idx++) {
                 const textPart = interactionText[idx];
                 const interactionNodes =
-                    typeof textPart === 'string' ? newlineStringToNodes(textPart) : [textPart];
-                gameController.console.print(<div>{interactionNodes}</div>, <br />);
+                    typeof textPart === "string"
+                        ? newlineStringToNodes(textPart)
+                        : [textPart];
+                gameController.console.print(
+                    <div>{interactionNodes}</div>,
+                    <br />,
+                );
 
                 const isFinalLoop = idx === interactionText.length - 1;
 
                 if (itemNodes && isFinalLoop) {
-                    gameController.console.print(<div>{itemNodes}</div>, <br />);
+                    gameController.console.print(
+                        <div>{itemNodes}</div>,
+                        <br />,
+                    );
                 }
                 if (featureNodes && isFinalLoop) {
-                    gameController.console.print(<div>{featureNodes}</div>, <br />);
+                    gameController.console.print(
+                        <div>{featureNodes}</div>,
+                        <br />,
+                    );
                 }
 
                 await gameController.console.pause();
@@ -179,7 +204,9 @@ export default class Feature {
 
     protected _getItemNodes(): ReactNode[] | undefined {
         const itemsWithDiscoverText = this._items
-            .map<[Item, string | ReactNode[] | null]>((item) => [item, item.discoverText])
+            .map<
+                [Item, string | ReactNode[] | null]
+            >((item) => [item, item.discoverText])
             .filter(([, text]) => text !== null);
 
         return itemsWithDiscoverText.length < 1
@@ -194,7 +221,9 @@ export default class Feature {
 
     protected _getFeatureNodes(): ReactNode[] | undefined {
         const featuresWithDiscoverText = this._features
-            .map<[Feature, null | string | ReactNode[]]>((feat) => [feat, feat.discoverText])
+            .map<
+                [Feature, null | string | ReactNode[]]
+            >((feat) => [feat, feat.discoverText])
             .filter(([, text]) => text !== null);
 
         return featuresWithDiscoverText.length < 1
@@ -224,7 +253,10 @@ export type FeatureDefinition = {
     roomText?: string | null | FeatureCallback<string | null>;
 
     /** Define what happens when you interact with your feature */
-    interactionText: ReactNode | ReactNode[] | FeatureCallback<ReactNode | ReactNode[]>;
+    interactionText:
+        | ReactNode
+        | ReactNode[]
+        | FeatureCallback<ReactNode | ReactNode[]>;
 
     /** Optionally include discoverable Items within the Feature. */
     items?: DefinitionMap<FeatureItemDefinition>[];
@@ -233,7 +265,11 @@ export type FeatureDefinition = {
     discoverText?: string | null;
     locked?: false | { type?: LockType; code: LockCode };
     lockDiscovered?: boolean;
-    unlockText?: ReactNode | ReactNode[] | FeatureCallback<ReactNode | ReactNode[]>;
+    unlockText?:
+        | ReactNode
+        | ReactNode[]
+        | FeatureCallback<ReactNode | ReactNode[]>;
 };
 
-export type FeatureItemDefinition = ItemDefinition & RequiredKeys<ItemDefinition, 'discoverText'>;
+export type FeatureItemDefinition = ItemDefinition &
+    RequiredKeys<ItemDefinition, "discoverText">;

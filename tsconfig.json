@@ -1,13 +1,17 @@
 {
-  "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
-    "lib": ["ESNext"],
-    "outDir": "build",
-    "strict": true,
-    "skipLibCheck": true,
-    "moduleDetection": "force"
-  },
-  "include": ["./src/**/*", "index.ts"],
-  "exclude": ["./src/**/*.test.ts", "node_modules", "build"]
+    "compilerOptions": {
+        "target": "ES2019",
+        "module": "CommonJS",
+        "lib": ["ESNext", "DOM"],
+        "outDir": "build",
+        "strict": true,
+        "skipLibCheck": true,
+        "moduleDetection": "force",
+        "moduleResolution": "Node",
+        "declaration": true,
+        "declarationMap": false,
+        "jsx": "react"
+    },
+    "include": ["./src/**/*", "index.ts"],
+    "exclude": ["./src/**/*.test.ts", "node_modules", "build"]
 }

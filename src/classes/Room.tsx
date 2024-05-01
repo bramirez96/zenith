@@ -1,13 +1,13 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import Item, { ItemDefinition } from './Item';
-import Exit, { ExitDefinition } from './Exit';
-import GameController from '../GameController';
-import { asFunction, newlineStringToNodes } from '../gameHelpers';
-import ActionMap from './ActionMap';
-import { ReactNode } from 'react';
-import Feature, { FeatureDefinition } from './Feature';
-import { DefinitionMap } from '../gameTypes';
+import Item, { ItemDefinition } from "./Item";
+import Exit, { ExitDefinition } from "./Exit";
+import GameController from "../GameController";
+import { asFunction, newlineStringToNodes } from "../gameHelpers";
+import ActionMap from "./ActionMap";
+import { ReactNode } from "react";
+import Feature, { FeatureDefinition } from "./Feature";
+import { DefinitionMap } from "../gameTypes";
 
 /**
  * Instances of the Room class represent a single tile on the Zone map. Each
@@ -22,11 +22,11 @@ export default class Room {
     public roomID: RoomID;
 
     public _fOnEnter: RoomCallback<ReactNode | ReactNode[]>;
-    
+
     private visited = false;
-    
+
     private readonly exits: Exit[] = [];
-    
+
     private features: Feature[] = [];
 
     /**
@@ -47,7 +47,10 @@ export default class Room {
         }
 
         if (features) {
-            for (const { type: FeatureType = Feature, definition } of features) {
+            for (const {
+                type: FeatureType = Feature,
+                definition,
+            } of features) {
                 this.features.push(new FeatureType(definition));
             }
         }
@@ -94,11 +97,15 @@ export default class Room {
         // Add the Room enter text
         const _rawRoomText = this._fOnEnter(this, gameController);
         enterText.push(
-            typeof _rawRoomText === 'string' ? newlineStringToNodes(_rawRoomText) : _rawRoomText,
+            typeof _rawRoomText === "string"
+                ? newlineStringToNodes(_rawRoomText)
+                : _rawRoomText,
         );
 
         const featureRoomText = this.features
-            .map<[Feature, ReactNode[] | null]>((feat) => [feat, feat.getRoomText(gameController)])
+            .map<
+                [Feature, ReactNode[] | null]
+            >((feat) => [feat, feat.getRoomText(gameController)])
             .filter(([_feat, _roomText]) => _roomText !== null);
 
         // Add text for each feature
@@ -150,7 +157,10 @@ export default class Room {
     public removeItem(item: Item) {
         const idx = this._items.indexOf(item);
         if (idx >= 0) {
-            this._items = [...this._items.slice(0, idx), ...this._items.slice(idx + 1)];
+            this._items = [
+                ...this._items.slice(0, idx),
+                ...this._items.slice(idx + 1),
+            ];
             return item;
         }
     }
@@ -176,7 +186,10 @@ export default class Room {
 }
 
 export type RoomID = string;
-export type RoomCallback<ReturnType> = (room: Room, game: GameController) => ReturnType;
+export type RoomCallback<ReturnType> = (
+    room: Room,
+    game: GameController,
+) => ReturnType;
 
 export type RoomDefinition = {
     /**

@@ -6,3 +6,4 @@ export * from "./src/features";
 export * from "./src/gameControls";
 export * from "./src/gameTypes";
 export * from "./src/items";
+export * from "./src/utils";

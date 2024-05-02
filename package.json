@@ -1,19 +1,23 @@
 {
     "name": "@zenith-game/core",
-    "version": "0.9.1",
+    "version": "0.9.2",
     "description": "Zenith is a work-in-progress game engine to build highly customizable console-based text adventure game experiences.",
-    "main": "build/index.js",
-    "types": "build/index.d.ts",
+    "exports": {
+        "default": "./dist/cjs/index.js",
+        "require": "./dist/cjs/index.js",
+        "import": "./dist/esm/index.js",
+        "node": "./dist/esm/index.js",
+        "types": "./dist/types/index.d.ts"
+    },
     "type": "module",
-    "files": [
-        "build",
-        "README.md"
-    ],
     "repository": "https://github.com/bramirez96/zenith",
     "author": "Brandon Ramirez <brandon@brr.dev>",
     "license": "MIT",
     "scripts": {
-        "build": "rm -rf build && npx tsc",
+        "preBuild": "rm -rf build && npm-run-all format test",
+        "build": "npx tsc --emitDeclarationOnly && npm-run-all build:cjs-min build:esm-min",
+        "build:cjs-min": "esbuild `find src \\( -name '*.ts' ! -name '*.spec.ts' ! -name '*.test.ts' ! -name 'client.ts' \\)` --minify --outdir=dist/cjs --platform=node --sourcemap --format=cjs --keep-names --target=esnext",
+        "build:esm-min": "esbuild `find src \\( -name '*.ts' ! -name '*.spec.ts' ! -name '*.test.ts' ! -name 'client.ts' \\)` --minify --outdir=dist/esm --platform=node --sourcemap --format=esm --keep-names --target=esnext",
         "test": "jest --passWithNoTests",
         "test:coverage": "jest --coverage",
         "format": "prettier --write \"src/**/*.ts\"",

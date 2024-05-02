@@ -1,18 +1,23 @@
 {
     "compilerOptions": {
         "target": "ES2019",
-        "module": "CommonJS",
-        "lib": ["ESNext", "DOM"],
-        "outDir": "build",
+        "module": "ESNext",
+        "lib": ["ES2019", "DOM"],
+        "outDir": "./dist/types",
         "strict": true,
+        "alwaysStrict": true,
         "skipLibCheck": true,
-        "moduleDetection": "force",
         "moduleResolution": "Node",
         "declaration": true,
         "declarationMap": false,
         "jsx": "react",
-        "esModuleInterop": true
+        "esModuleInterop": true,
+        "downlevelIteration": true,
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+        "forceConsistentCasingInFileNames": true,
+        "allowJs": true
     },
-    "include": ["./src/**/*", "index.ts"],
-    "exclude": ["./src/**/*.test.ts", "node_modules", "build"]
+    "include": ["./src/**/*"],
+    "exclude": ["./src/**/*.test.ts", "node_modules", "build", "dist"]
 }

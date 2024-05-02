@@ -1,8 +1,7 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
 import React from "react";
-import GameController from "../GameController";
-import Action from "../classes/Action";
+import { Action, GameController } from "../classes";
 
 export default class ViewInventoryAction extends Action {
     constructor(gameController: GameController) {

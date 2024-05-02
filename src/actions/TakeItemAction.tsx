@@ -1,10 +1,8 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import Action from "../classes/Action";
-import GameController from "../GameController";
-import { Item, Room } from "../classes";
-import { wrapInputTag } from "../gameHelpers";
 import React from "react";
+import { Action, GameController, Item, Room } from "../classes";
+import { wrapInputTag } from "../gameHelpers";
 
 export default class TakeItemAction extends Action {
     constructor(item: Item, room: Room, gameController: GameController) {

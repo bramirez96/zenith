@@ -1,9 +1,7 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
 import React from "react";
-import GameController from "../GameController";
-import Action from "../classes/Action";
-import Feature from "../classes/Feature";
+import { Action, Feature, GameController } from "../classes";
 import { wrapInputTag } from "../gameHelpers";
 
 export default class InteractAction extends Action {

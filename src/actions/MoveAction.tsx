@@ -1,9 +1,7 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
 import React from "react";
-import GameController from "../GameController";
-import { Exit } from "../classes";
-import Action from "../classes/Action";
+import { Action, Exit, GameController } from "../classes";
 import { playInteractionText, wrapInputTag } from "../gameHelpers";
 
 export default class MoveAction extends Action {

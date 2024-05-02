@@ -1,14 +1,14 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
 import React, { ReactNode } from "react";
-import GameController from "../GameController";
 import { asFunction, newlineStringToNodes } from "../gameHelpers";
 import { DefinitionMap } from "../gameTypes";
+import { ObjectDefinitionGenerator } from "../utils";
 import ActionMap from "./ActionMap";
 import Exit, { ExitDefinition } from "./Exit";
 import Feature, { FeatureDefinition } from "./Feature";
+import GameController from "./GameController";
 import Item, { ItemDefinition } from "./Item";
-import { ObjectDefinitionGenerator } from "../utils";
 
 /**
  * Instances of the Room class represent a single tile on the Zone map. Each

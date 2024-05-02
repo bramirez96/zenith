@@ -1,11 +1,11 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
 import { ReactNode } from "react";
+import { TakeItemAction } from "../actions";
 import { replaceTag } from "../gameHelpers";
-import GameController from "../GameController";
-import ActionMap from "./ActionMap";
-import TakeItemAction from "../actions/TakeItemAction";
 import { ObjectDefinitionGenerator } from "../utils";
+import ActionMap from "./ActionMap";
+import GameController from "./GameController";
 
 export default class Item {
     public name: string;

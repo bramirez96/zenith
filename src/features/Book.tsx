@@ -1,8 +1,7 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
 import React, { ReactNode } from "react";
-import { Feature, FeatureDefinition } from "../classes";
-import GameController from "../GameController";
+import { Feature, FeatureDefinition, GameController } from "../classes";
 import { newlineStringToNodes } from "../gameHelpers";
 import { OptionalKeys } from "../gameTypes";
 

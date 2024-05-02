@@ -1,10 +1,8 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import Action from "../classes/Action";
-import GameController from "../GameController";
-import { Key } from "../items";
-import { Exit, Feature } from "../classes";
 import React from "react";
+import { Action, Exit, Feature, GameController } from "../classes";
+import { Key } from "../items";
 
 export default class UnlockAction extends Action {
     constructor(target: Exit | Feature, gameController: GameController) {

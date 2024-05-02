@@ -1,14 +1,14 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import Room, { RoomID } from "./Room";
-import GameController from "../GameController";
-import { asFunction, newlineStringToNodes, replaceTag } from "../gameHelpers";
-import Key from "../items/Key";
 import { ReactNode } from "react";
-import { LockCode, LockType } from "../gameTypes";
-import ActionMap from "./ActionMap";
 import { MoveAction, UnlockAction } from "../actions";
+import { asFunction, newlineStringToNodes, replaceTag } from "../gameHelpers";
+import { LockCode, LockType } from "../gameTypes";
+import { Key } from "../items";
 import { ObjectDefinitionGenerator } from "../utils";
+import ActionMap from "./ActionMap";
+import GameController from "./GameController";
+import Room, { RoomID } from "./Room";
 
 // TODO this class is a mess, clean it up
 export default class Exit {

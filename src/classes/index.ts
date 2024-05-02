@@ -8,6 +8,8 @@ export * from "./Exit";
 export { default as Exit } from "./Exit";
 export * from "./Feature";
 export { default as Feature } from "./Feature";
+export * from "./GameController";
+export { default as GameController } from "./GameController";
 export * from "./Item";
 export { default as Item } from "./Item";
 export * from "./Player";

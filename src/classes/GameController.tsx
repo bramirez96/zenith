@@ -1,17 +1,13 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import { GameDiscDefinition } from "./gameTypes";
-import {
-    ConsoleController,
-    Player,
-    Room,
-    RoomID,
-    Zone,
-    ZoneID,
-    ZoneLoader,
-} from "./classes";
-import { HelpAction, ViewInventoryAction } from "./actions";
 import React from "react";
+import { HelpAction, ViewInventoryAction } from "../actions";
+import { GameDiscDefinition } from "../gameTypes";
+import ConsoleController from "./ConsoleController";
+import Player from "./Player";
+import Room, { RoomID } from "./Room";
+import Zone, { ZoneID } from "./Zone";
+import ZoneLoader from "./ZoneLoader";
 
 /**
  * This class should handle everything. It should build maps from JSON and store the

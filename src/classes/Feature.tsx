@@ -1,14 +1,14 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
 import React, { ReactNode } from "react";
-import GameController from "../GameController";
 import { InteractAction, UnlockAction } from "../actions";
 import { asFunction, newlineStringToNodes, replaceTag } from "../gameHelpers";
 import { DefinitionMap, LockCode, LockType, RequiredKeys } from "../gameTypes";
 import { Key } from "../items";
-import ActionMap from "./ActionMap";
-import Item, { ItemDefinition } from "./Item";
 import { ObjectDefinitionGenerator } from "../utils";
+import ActionMap from "./ActionMap";
+import GameController from "./GameController";
+import Item, { ItemDefinition } from "./Item";
 
 export default class Feature {
     public name: string;

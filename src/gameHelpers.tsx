@@ -2,8 +2,7 @@
 
 import { classnames } from "@brr-dev/classnames";
 import React, { ReactNode } from "react";
-import GameController from "./GameController";
-import { Feature, Item, Room } from "./classes";
+import { Feature, GameController, Item, Room } from "./classes";
 import { InteractionText } from "./gameTypes";
 
 /**

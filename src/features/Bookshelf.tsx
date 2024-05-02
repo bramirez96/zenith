@@ -1,11 +1,10 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
-import Feature, { FeatureDefinition } from "../classes/Feature";
-import GameController from "../GameController";
-import Book, { BookDefinition } from "./Book";
+import React from "react";
+import { Feature, GameController, type FeatureDefinition } from "../classes";
 import { wrapInputTag } from "../gameHelpers";
 import { DefinitionMap, OptionalKeys } from "../gameTypes";
-import React from "react";
+import Book, { BookDefinition } from "./Book";
 
 export default class Bookshelf extends Feature {
     private readonly books: Book[] = [];

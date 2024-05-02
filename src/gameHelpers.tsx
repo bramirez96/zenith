@@ -2,15 +2,8 @@
 
 import { classnames } from "@brr-dev/classnames";
 import React, { ReactNode } from "react";
-import { Feature, GameController, Item, Room } from "./classes";
+import { GameController } from "./classes";
 import { InteractionText } from "./gameTypes";
-
-/**
- * Return the value if it's a function, or return a new cb returning the value.
- */
-export function asFunction<CBType, DataType>(data: DataType) {
-    return (typeof data !== "function" ? () => data : data) as CBType;
-}
 
 export function wrapInputTag(tag: string, tagOnClick?: () => void): ReactNode {
     return (
@@ -46,20 +39,6 @@ export function newlineStringToNodes(
         res.push(stringPart);
         return res;
     }, [] as ReactNode[]);
-}
-
-export function hasItem(
-    featureOrRoom: Feature | Room,
-    itemOrName: string | Item,
-): boolean {
-    if (typeof itemOrName === "string") {
-        return (
-            featureOrRoom.items.find((value) => value.name === itemOrName) !==
-            undefined
-        );
-    } else {
-        return featureOrRoom.items.indexOf(itemOrName) >= 0;
-    }
 }
 
 export async function playInteractionText(

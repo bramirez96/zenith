@@ -2,16 +2,18 @@
 
 import React, { ReactNode } from "react";
 import { InteractAction, UnlockAction } from "../actions";
-import { asFunction, newlineStringToNodes, replaceTag } from "../gameHelpers";
+import { newlineStringToNodes, replaceTag } from "../gameHelpers";
 import { DefinitionMap, LockCode, LockType, RequiredKeys } from "../gameTypes";
 import { Key } from "../items";
-import { ObjectDefinitionGenerator } from "../utils";
+import { ObjectDefinitionGenerator, asFunction } from "../utils";
 import ActionMap from "./ActionMap";
 import GameController from "./GameController";
 import Item, { ItemDefinition } from "./Item";
+import Inventory from "./Inventory";
 
 export default class Feature {
     public name: string;
+    public items: Inventory;
     public locked: boolean;
     public lockDiscovered: boolean;
     public readonly lockCode?: LockCode;
@@ -37,6 +39,7 @@ export default class Feature {
         discoverText,
     }: FeatureDefinition) {
         this.name = name;
+        this.items = new Inventory(items);
         this._fInteractionTextCB = asFunction(interactionText);
         this.lockDiscovered = lockDiscovered;
 
@@ -60,18 +63,9 @@ export default class Feature {
             this._fGetUnlockTextCB = asFunction(unlockText);
         }
 
-        for (const { type: ItemType = Item, definition } of items) {
-            this._items.push(new ItemType(definition));
-        }
-
         for (const { type: FeatureType = Feature, definition } of features) {
             this._features.push(new FeatureType(definition));
         }
-    }
-
-    protected _items: Item[] = [];
-    public get items() {
-        return this._items;
     }
 
     protected _features: Feature[] = [];
@@ -203,7 +197,7 @@ export default class Feature {
     }
 
     protected _getItemNodes(): ReactNode[] | undefined {
-        const itemsWithDiscoverText = this._items
+        const itemsWithDiscoverText = this.items
             .map<
                 [Item, string | ReactNode[] | null]
             >((item) => [item, item.discoverText])

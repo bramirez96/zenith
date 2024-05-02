@@ -1,10 +1,11 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
 import { ConditionMap } from "../gameTypes";
+import Inventory from "./Inventory";
 import Item from "./Item";
 
 export default class Player {
-    public inventory: Item[] = [];
+    public inventory: Inventory = new Inventory();
 
     private readonly conditions: ConditionMap = {};
 
@@ -21,12 +22,6 @@ export default class Player {
     }
 
     removeItem(item: Item) {
-        const idx = this.inventory.indexOf(item);
-        if (idx >= 0) {
-            this.inventory = [
-                ...this.inventory.slice(0, idx),
-                ...this.inventory.slice(idx + 1),
-            ];
-        }
+        return this.inventory.removeItem(item);
     }
 }

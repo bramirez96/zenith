@@ -1,13 +1,14 @@
 // ! Copyright (c) 2024, Brandon Ramirez, brr.dev
 
 import React, { ReactNode } from "react";
-import { asFunction, newlineStringToNodes } from "../gameHelpers";
+import { newlineStringToNodes } from "../gameHelpers";
 import { DefinitionMap } from "../gameTypes";
-import { ObjectDefinitionGenerator } from "../utils";
+import { ObjectDefinitionGenerator, asFunction } from "../utils";
 import ActionMap from "./ActionMap";
 import Exit, { ExitDefinition } from "./Exit";
 import Feature, { FeatureDefinition } from "./Feature";
 import GameController from "./GameController";
+import Inventory from "./Inventory";
 import Item, { ItemDefinition } from "./Item";
 
 /**
@@ -22,6 +23,8 @@ import Item, { ItemDefinition } from "./Item";
 export default class Room {
     public roomID: RoomID;
 
+    public items: Inventory;
+
     public _fOnEnter: RoomCallback<ReactNode | ReactNode[]>;
 
     private visited = false;
@@ -35,16 +38,11 @@ export default class Room {
      */
     constructor({ id, exits, features, items, onEnter }: RoomDefinition) {
         this.roomID = id;
+        this.items = new Inventory(items);
         this._fOnEnter = asFunction(onEnter);
 
         for (const exitDefinition of exits) {
             this.exits.push(new Exit(exitDefinition));
-        }
-
-        if (items) {
-            for (const { type: ItemType = Item, definition } of items) {
-                this._items.push(new ItemType(definition));
-            }
         }
 
         if (features) {
@@ -57,22 +55,13 @@ export default class Room {
         }
     }
 
-    private _items: Item[] = [];
-
-    public get items() {
-        return this._items;
-    }
-
     /** If true, this Room has been visited at least once. */
     get isVisited() {
         return this.visited;
     }
 
     public discoverFrom(fromFeature: Feature) {
-        while (fromFeature.items?.length > 0) {
-            const item = fromFeature.items.shift();
-            if (item) this.items.push(item);
-        }
+        this.items.discoverFrom(fromFeature);
 
         const newFeatures = [];
         while (fromFeature.features.length > 0) {
@@ -118,8 +107,8 @@ export default class Room {
         }
 
         // Add text for each item
-        if (this._items.length > 0) enterText.push(<br />);
-        for (const item of this._items) {
+        if (this.items.hasItems()) enterText.push(<br />);
+        for (const item of this.items) {
             enterText.push(<br />, ...item.getRoomText(gameController));
         }
 
@@ -148,7 +137,7 @@ export default class Room {
             feature.registerActions(actions, gameController);
         }
 
-        for (const item of this._items) {
+        for (const item of this.items) {
             item.registerActions(actions, gameController);
         }
 
@@ -156,14 +145,7 @@ export default class Room {
     }
 
     public removeItem(item: Item) {
-        const idx = this._items.indexOf(item);
-        if (idx >= 0) {
-            this._items = [
-                ...this._items.slice(0, idx),
-                ...this._items.slice(idx + 1),
-            ];
-            return item;
-        }
+        return this.items.removeItem(item);
     }
 
     public getExit(direction: string): Exit {

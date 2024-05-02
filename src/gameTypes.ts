@@ -17,6 +17,11 @@ export type DefinitionMap<
     definition: FeatureDefinition;
 };
 
+export type DefinitionMap_<C extends new (...args: any) => any> = {
+    type: C;
+    definition: ConstructorParameters<C>[0];
+};
+
 /**
  * This is effectively how we will define our game "discs".
  */

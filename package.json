@@ -1,6 +1,6 @@
 {
-    "name": "@brr-dev/zenith",
-    "version": "0.9.0",
+    "name": "@zenith/core",
+    "version": "0.9.1",
     "description": "Zenith is a work-in-progress game engine to build highly customizable console-based text adventure game experiences.",
     "main": "build/index.js",
     "types": "build/index.d.ts",

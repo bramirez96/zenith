@@ -2,10 +2,10 @@
 
 import { ReactNode } from "react";
 import { MoveAction, UnlockAction } from "../actions";
-import { asFunction, newlineStringToNodes, replaceTag } from "../gameHelpers";
+import { newlineStringToNodes, replaceTag } from "../gameHelpers";
 import { LockCode, LockType } from "../gameTypes";
 import { Key } from "../items";
-import { ObjectDefinitionGenerator } from "../utils";
+import { ObjectDefinitionGenerator, asFunction } from "../utils";
 import ActionMap from "./ActionMap";
 import GameController from "./GameController";
 import Room, { RoomID } from "./Room";
